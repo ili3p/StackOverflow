@@ -12,17 +12,15 @@ import sg.edu.nus.StackOverflow.util.DB;
 import sg.edu.nus.StackOverflow.util.StackOverflowAPI;
 
 /**
- * Servlet implementation class GetUsers
+ * Servlet to get user profiles via StackOverflow API and save them in MongoDB database. 
+ * The process is done in batches of size 'pagesize'. 
+ * Sample URL query: /get_users?pagesize=100&min=5000&max=10000
  */
 @WebServlet("/get_users")
 public class GetUsers extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Servlet to get user profiles via StackOverflow API and save them in MongoDB database. 
-     * The process is done in batches of size 'pagesize'. 
-     * Sample URL query: /get_users?pagesize=100&min=5000&max=10000
-     * 
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

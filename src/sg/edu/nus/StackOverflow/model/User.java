@@ -1,20 +1,60 @@
 package sg.edu.nus.StackOverflow.model;
 
+/**
+ * Class that encapsulates StackOverflow user data. 
+ * @author ilija
+ *
+ */
 public class User extends Model {
 
+    /**
+     * StackOverflow internal account id. 
+     */
     private long account_id;
+    
+    /**
+     * StackOverflow account creation date. 
+     */
     private long creation_date;
 
+    /**
+     * Link to the StackOverflow profile of the user. 
+     */
     private String link;
 
+    /**
+     * Location of the user.
+     */
     private String location;
+    
+    /**
+     * Reputation points for the user.
+     */
     private int reputation;
+    
+    /**
+     * User's age. 
+     */
     private int age;
 
+    /**
+     * Location extracted from the HTML code of the StackOverflow profile.
+     */
     private String parsedLocation;
+    
+    /**
+     * Reputation points extracted from the HTML code of the StackOverflow profile.
+     */
     private int parsedReputation;
+    
+    /**
+     * User's age extracted from the HTML code of the StackOverflow profile.
+     */
     private int parsedAge;
 
+    /**
+     * Country code from Google's Geocoding API on the user's location. 
+     */
     private String country;
 
     /**

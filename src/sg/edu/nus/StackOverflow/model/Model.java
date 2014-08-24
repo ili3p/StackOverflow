@@ -6,6 +6,13 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 
+/**
+ * Class that all MongoDB models should extend. 
+ * It contains utility methods for converting objects in BasicDBObjects, 
+ * needed for saving the objects in mongoDB. 
+ * @author ilija
+ *
+ */
 public abstract class Model {
 
     private ID _id;
@@ -31,6 +38,11 @@ public abstract class Model {
         }
     }
 
+    /**
+     * Convert the object in BasicDBObject.
+     * The object's field names will be used as keys in the BasicDBObject. 
+     * @return
+     */
     public BasicDBObject toDBObject() {
 
         BasicDBObject doc = new BasicDBObject();

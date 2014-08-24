@@ -22,6 +22,14 @@ public enum StackOverflowAPI {
      */
     private static final int PAGE_SIZE = 100;
 
+    /**
+     * Get pageSize number of users with reputation between minRating and maxRating. 
+     * It uses StackOverflow API to fetch the data. 
+     * @param pageSize
+     * @param minRating
+     * @param maxRating
+     * @return
+     */
     public static User[] getUsers(Integer pageSize, Integer minRating, Integer maxRating) {
         User[] users = null;
         try {

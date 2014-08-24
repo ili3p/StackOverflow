@@ -11,6 +11,13 @@ import sg.edu.nus.StackOverflow.model.User;
 public enum StackOverflowParser {
     INSTANCE;
 
+    /**
+     * Get data for a user by parsing the HTML page from the StackOverflow profile. 
+     * 
+     * @param user, object with contains link to the StackOverflow profile
+     * @return the same object with the appropriate fields updated. 
+     * @throws IOException
+     */
     public static User parseUser(User user) throws IOException {
 
         Document doc = Net.getDoc(user.getLink());

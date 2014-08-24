@@ -16,6 +16,14 @@ public enum GeocodingAPI {
     private static final String API_URL = "https://maps.googleapis.com/maps/api/geocode/json?key="
             + API_KEY;
 
+    /**
+     * Get the country code based on the location in the parameter. 
+     * Examples: Paris, France will return FR, Seattle, WA will return US.
+     * 
+     * It uses Google's free Geocoding API which at the moment is limited to 2500 requests per 24 hours. 
+     * @param location
+     * @return
+     */
     public static String getCountry(String location) {
 
         String country = "";
@@ -26,7 +34,8 @@ public enum GeocodingAPI {
             JsonParser parser = new JsonParser();
             JsonObject json = parser.parse(jsonString).getAsJsonObject();
             JsonArray results = json.get("results").getAsJsonArray();
-            JsonArray arr = results.get(0).getAsJsonObject().get("address_components").getAsJsonArray();
+            JsonArray arr = results.get(0).getAsJsonObject().get("address_components")
+                    .getAsJsonArray();
             for (JsonElement el : arr) {
                 JsonObject obj = el.getAsJsonObject();
                 JsonArray types = obj.get("types").getAsJsonArray();

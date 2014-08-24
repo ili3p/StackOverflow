@@ -14,7 +14,9 @@ import sg.edu.nus.StackOverflow.util.DB;
 import sg.edu.nus.StackOverflow.util.GeocodingAPI;
 
 /**
- * Servlet implementation class GetCountries
+ * Servlet to get the country codes from Google's Geocoding API
+ * It does not use any parameters. 
+ * The results are saved in the database.
  */
 @WebServlet("/get_countries")
 public class GetCountries extends HttpServlet {

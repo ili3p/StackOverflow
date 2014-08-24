@@ -15,7 +15,8 @@ import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
 
 /**
- * Servlet implementation class GetUserDataCSV
+ * Servlet to output all of the user data, stored in the database, as CSV file. 
+ * It does not use any parameters. 
  */
 @WebServlet("/user_data_csv")
 public class GetUserDataCSV extends HttpServlet {
@@ -33,8 +34,7 @@ public class GetUserDataCSV extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
         writer.print("Reputation,");
-        //in months
-        writer.print("Account_Age,");
+        writer.print("Account_Age,");//in months
         writer.print("User_Age,");
         writer.print("Link,");
         writer.print("Country\n");

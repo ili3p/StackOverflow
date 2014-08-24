@@ -9,17 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
-import sg.edu.nus.StackOverflow.util.GeocodingAPI;
-import sg.edu.nus.StackOverflow.util.StackOverflowParser;
 
 /**
- * Servlet implementation class Test
+ * Servlet used for testing that the web server is up and that the MongoDB connection is working.
  */
-@WebServlet(
-        description = "Test servlet to test that the web server is up and that the MongoDB connection is working.",
-        urlPatterns = { "/test" })
+@WebServlet("/test")
 public class Test extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

@@ -14,7 +14,9 @@ import sg.edu.nus.StackOverflow.util.DB;
 import sg.edu.nus.StackOverflow.util.StackOverflowParser;
 
 /**
- * Servlet implementation class GetParsedUsers
+ * Servlet to extract data from HTML pages of the StackOverflow profiles. 
+ * It does not use any parameters. 
+ * The results are saved in the database.
  */
 @WebServlet("/get_parsed")
 public class GetParsedUsers extends HttpServlet {
