@@ -3,9 +3,12 @@ package sg.edu.nus.StackOverflow.util;
 import org.bson.types.ObjectId;
 
 import sg.edu.nus.StackOverflow.model.Model;
+import sg.edu.nus.StackOverflow.model.User;
 
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 public enum DB {
@@ -34,6 +37,20 @@ public enum DB {
         }
 
         return null;
+    }
+
+    public static User getUser(long accountId) {
+        Gson gson = new Gson();
+        DBCollection coll = mc.getDB(DB_NAME)
+                .getCollection(getCollectionName(User.class));
+        DBObject obj = coll.findOne(new BasicDBObject("account_id", accountId));
+        User user = null;
+
+        if (obj != null) {
+            user = gson.fromJson(obj.toString(), User.class);
+        }
+
+        return user;
     }
 
     public static Model saveModel(Model model) {

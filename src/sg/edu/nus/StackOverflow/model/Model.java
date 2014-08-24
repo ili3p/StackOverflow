@@ -41,7 +41,8 @@ public abstract class Model {
             for (Field field : fields) {
 
                 String name = field.getName();
-                String mN = "get" + Character.toUpperCase(name.charAt(0)) + name.substring(1);
+                String mN = "get" + Character.toUpperCase(name.charAt(0))
+                        + name.substring(1);
                 Object value = c.getDeclaredMethod(mN).invoke(this);
 
                 doc.put(name, value);

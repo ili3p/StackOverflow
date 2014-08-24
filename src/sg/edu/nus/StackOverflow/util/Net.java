@@ -6,8 +6,35 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 public enum Net {
     INSTANCE;
+
+    /**
+     * User agent string passed when using jsoup to look as normal user request.
+     */
+    private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36";
+
+    /**
+     * Fetches jsoup document from URL. 
+     * 
+     * @param url, the URL containing the HTML document
+     * @return the HTML doc. as jsoup doc. 
+     * @throws IOException
+     *             if the URL is not found or other error
+     */
+    public static Document getDoc(String url) throws IOException {
+
+        try {
+            return Jsoup.connect(url).timeout(10000).userAgent(USER_AGENT).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     /**
      * Read string from remote GZIP-ed stream using UTF-8 encoding. 

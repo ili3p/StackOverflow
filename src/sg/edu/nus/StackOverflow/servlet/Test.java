@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
+import sg.edu.nus.StackOverflow.util.StackOverflowParser;
 
 /**
  * Servlet implementation class Test
@@ -27,6 +29,13 @@ public class Test extends HttpServlet {
         response.setContentType("text/plain");
         response.getWriter().println("Server is OK!");
         response.getWriter().println(DB.test());
+
+        User user = DB.getUser(294226);
+        user = StackOverflowParser.parseUser(user);
+        System.out.println(user.getParsedAge());
+        System.out.println(user.getParsedLocation());
+        System.out.println(user.getParsedReputation());
+        DB.updateModel(user);
     }
 
 }
