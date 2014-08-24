@@ -15,6 +15,8 @@ public class User extends Model {
     private int parsedReputation;
     private int parsedAge;
 
+    private String country;
+    
     /**
      * @return the reputation
      */
@@ -139,6 +141,20 @@ public class User extends Model {
      */
     public void setCreation_date(long creation_date) {
         this.creation_date = creation_date;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
 }

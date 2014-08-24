@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
+import sg.edu.nus.StackOverflow.util.GeocodingAPI;
 import sg.edu.nus.StackOverflow.util.StackOverflowParser;
 
 /**
@@ -35,6 +36,9 @@ public class Test extends HttpServlet {
         System.out.println(user.getParsedAge());
         System.out.println(user.getParsedLocation());
         System.out.println(user.getParsedReputation());
+
+        String country = GeocodingAPI.getCountry(user.getLocation());
+        user.setCountry(country);
         DB.updateModel(user);
     }
 

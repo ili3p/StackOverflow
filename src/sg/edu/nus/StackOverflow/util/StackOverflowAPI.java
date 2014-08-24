@@ -15,21 +15,21 @@ public enum StackOverflowAPI {
     /**
      * The API URL.
      */
-    private static final String URL = "http://api.stackexchange.com/2.2/users?order=desc&sort=reputation&site=stackoverflow";
+    private static final String API_URL = "http://api.stackexchange.com/2.2/users?order=desc&sort=reputation&site=stackoverflow";
 
     /**
      * The default and the maximum number of records requested. 
      */
     private static final int PAGE_SIZE = 100;
 
-    private static final JsonParser parser = new JsonParser();
-    private static final Gson gson = new Gson();
-
     public static User[] getUsers(Integer pageSize, Integer minRating, Integer maxRating) {
         User[] users = null;
         try {
+            JsonParser parser = new JsonParser();
+            Gson gson = new Gson();
+
             String urlString = buildUrl(pageSize, minRating, maxRating);
-            JsonElement obj = parser.parse(Net.readURL(urlString));
+            JsonElement obj = parser.parse(Net.readURL(urlString, true));
             JsonElement json = obj.getAsJsonObject().get("items");
 
             users = gson.fromJson(json, User[].class);
@@ -42,7 +42,7 @@ public enum StackOverflowAPI {
     }
 
     private static String buildUrl(Integer pageSize, Integer minRating, Integer maxRating) {
-        StringBuilder urlBuilder = new StringBuilder(URL);
+        StringBuilder urlBuilder = new StringBuilder(API_URL);
         int size = PAGE_SIZE;
 
         if (pageSize != null) {

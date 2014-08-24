@@ -1,5 +1,8 @@
 package sg.edu.nus.StackOverflow.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 
 import sg.edu.nus.StackOverflow.model.Model;
@@ -8,6 +11,7 @@ import sg.edu.nus.StackOverflow.model.User;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
@@ -37,6 +41,19 @@ public enum DB {
         }
 
         return null;
+    }
+
+    public static List<User> getAllUsers() {
+        List<User> list = new ArrayList<User>();
+        Gson gson = new Gson();
+        DBCollection coll = mc.getDB(DB_NAME)
+                .getCollection(getCollectionName(User.class));
+        DBCursor cursor = coll.find();
+        while (cursor.hasNext()) {
+            list.add(gson.fromJson(cursor.next().toString(), User.class));
+        }
+
+        return list;
     }
 
     public static User getUser(long accountId) {

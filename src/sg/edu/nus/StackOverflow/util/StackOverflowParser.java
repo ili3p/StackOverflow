@@ -24,7 +24,10 @@ public enum StackOverflowParser {
             Elements tds = tr.select("td");
             if (tds.size() == 2) {
                 if (tds.get(0).text().equalsIgnoreCase("age")) {
-                    age = Integer.parseInt(tds.get(1).text());
+                    String text = tds.get(1).text();
+                    if (text.length() > 0) {
+                        age = Integer.parseInt(text);
+                    }
                 }
                 if (tds.get(0).text().equalsIgnoreCase("location")) {
                     location = tds.get(1).text();

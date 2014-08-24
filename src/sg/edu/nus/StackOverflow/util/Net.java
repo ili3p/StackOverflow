@@ -2,6 +2,7 @@ package sg.edu.nus.StackOverflow.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
@@ -37,21 +38,30 @@ public enum Net {
     }
 
     /**
-     * Read string from remote GZIP-ed stream using UTF-8 encoding. 
+     * Read string from remote input stream using UTF-8 encoding. 
+     * Set isGzip to true if the input stream is Gzip-ed.
      * 
-     * @param urlString, URL of the input stream
+     * @param urlString, URL of the input stream,
+     * @param isGzip, is the remote stream gzip-ed
      * @return 
      *
      * @throws IOException
      */
-    public static String readURL(String urlString) throws IOException {
+    public static String readURL(String urlString, boolean isGzip) throws IOException {
         BufferedReader reader = null;
         StringBuffer buffer = new StringBuffer();
 
         try {
             URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(
-                    url.openStream()), "UTF-8"));
+            InputStream is;
+
+            if (isGzip) {
+                is = new GZIPInputStream(url.openStream());
+            } else {
+                is = url.openStream();
+            }
+
+            reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             char[] chars = new char[1024];
             int read;
             while ((read = reader.read(chars)) != -1) {
