@@ -16,15 +16,15 @@ public enum StackOverflowAPI {
      * The API URL.
      */
     private static final String URL = "http://api.stackexchange.com/2.2/users?order=desc&sort=reputation&site=stackoverflow";
-    
+
     /**
-     * The default number of records requested. 
+     * The default and the maximum number of records requested. 
      */
     private static final int PAGE_SIZE = 100;
-    
+
     private static final JsonParser parser = new JsonParser();
     private static final Gson gson = new Gson();
-    
+
     public static User[] getUsers(Integer pageSize, Integer minRating, Integer maxRating) {
         User[] users = null;
         try {
@@ -44,12 +44,12 @@ public enum StackOverflowAPI {
     private static String buildUrl(Integer pageSize, Integer minRating, Integer maxRating) {
         StringBuilder urlBuilder = new StringBuilder(URL);
         int size = PAGE_SIZE;
-        
-        if(pageSize != null) {
-            size = pageSize;
+
+        if (pageSize != null) {
+            size = Math.max(PAGE_SIZE, pageSize);
         }
         urlBuilder.append("&pagesize=" + size);
-        
+
         if (minRating != null) {
             urlBuilder.append("&min=" + minRating);
         }
