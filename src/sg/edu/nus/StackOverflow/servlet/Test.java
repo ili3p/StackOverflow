@@ -1,13 +1,16 @@
 package sg.edu.nus.StackOverflow.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
+import sg.edu.nus.StackOverflow.util.StackOverflowAPI;
 
 /**
  * Servlet implementation class Test
@@ -23,8 +26,12 @@ public class Test extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
         response.getWriter().println("Server is OK!");
         response.getWriter().println(DB.test());
+        User[] users = StackOverflowAPI.getUsers(100, 500, 1000);
+        response.getWriter().println(users[0].getCreationDate());
+        DB.saveModels(users);
     }
 
 }

@@ -1,5 +1,10 @@
 package sg.edu.nus.StackOverflow.util;
 
+import org.bson.types.ObjectId;
+
+import sg.edu.nus.StackOverflow.model.Model;
+
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
@@ -18,6 +23,7 @@ public enum DB {
     public static String test() {
         DBCollection coll = mc.getDB(DB_NAME).getCollection("test");
         return coll.find().next().toString();
+
     }
 
     private static MongoClient getClient() {
@@ -28,6 +34,39 @@ public enum DB {
         }
 
         return null;
+    }
+
+    public static Model saveModel(Model model) {
+        BasicDBObject obj = model.toDBObject();
+        mc.getDB(DB_NAME).getCollection(getCollectionName(model.getClass())).save(obj);
+        model.setIdAsString(obj.getObjectId("_id").toString());
+        return model;
+    }
+
+    public static void saveModels(Model[] models) {
+        for (Model model : models) {
+            saveModel(model);
+        }
+    }
+
+    public static Model updateModel(Model model) {
+        BasicDBObject obj = model.toDBObject();
+        mc.getDB(DB_NAME)
+                .getCollection(getCollectionName(model.getClass()))
+                .update(new BasicDBObject("_id", new ObjectId(model.getIdAsString())),
+                        obj);
+        return model;
+    }
+
+    public static void deleteModel(Model model) {
+        String id = model.getIdAsString();
+        DBCollection coll = mc.getDB(DB_NAME).getCollection(
+                getCollectionName(model.getClass()));
+        coll.remove(new BasicDBObject("_id", new ObjectId(id)));
+    }
+
+    public static String getCollectionName(Class<? extends Model> modelClass) {
+        return modelClass.getSimpleName();
     }
 
 }
