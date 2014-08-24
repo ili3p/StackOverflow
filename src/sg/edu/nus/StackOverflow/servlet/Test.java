@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sg.edu.nus.StackOverflow.util.DB;
+
 /**
  * Servlet implementation class Test
  */
@@ -21,7 +23,8 @@ public class Test extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.getWriter().print("Server is OK!");
+        response.getWriter().println("Server is OK!");
+        response.getWriter().println(DB.test());
     }
 
 }
