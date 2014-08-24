@@ -27,12 +27,13 @@ public class GetUserDataCSV extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<User> users = DB.getAllUsers();
-        long now = new Date().getTime()/1000;
+        long now = new Date().getTime() / 1000;
 
         response.setContentType("text/csv");
 
         PrintWriter writer = response.getWriter();
         writer.print("Reputation,");
+        //in months
         writer.print("Account_Age,");
         writer.print("User_Age,");
         writer.print("Link,");
@@ -40,9 +41,9 @@ public class GetUserDataCSV extends HttpServlet {
 
         for (User user : users) {
             writer.print(user.getReputation() + ",");
-            writer.print((now - user.getCreation_date()) + ",");
+            writer.print(((now - user.getCreation_date()) / 2628000) + ",");
             writer.print(user.getAge() + ",");
-            writer.print("\""+user.getLink()+"\",");
+            writer.print("\"" + user.getLink() + "\",");
             writer.print("\"" + user.getCountry() + "\"\n");
         }
         writer.close();
