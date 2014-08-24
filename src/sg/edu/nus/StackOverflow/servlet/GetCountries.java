@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import sg.edu.nus.StackOverflow.model.User;
 import sg.edu.nus.StackOverflow.util.DB;
-import sg.edu.nus.StackOverflow.util.StackOverflowParser;
+import sg.edu.nus.StackOverflow.util.GeocodingAPI;
 
 /**
- * Servlet implementation class GetParsedUsers
+ * Servlet implementation class GetCountries
  */
-@WebServlet("/get_parsed")
-public class GetParsedUsers extends HttpServlet {
+@WebServlet("/get_countries")
+public class GetCountries extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -27,8 +27,13 @@ public class GetParsedUsers extends HttpServlet {
             throws ServletException, IOException {
         List<User> users = DB.getAllUsers();
         for (User user : users) {
-            User parsedUser = StackOverflowParser.parseUser(user);
-            DB.updateModel(parsedUser);
+            String location = user.getLocation();
+            if (location != null && location.trim().length() > 0) {
+                String country = GeocodingAPI.getCountry(location);
+                user.setCountry(country);
+                DB.updateModel(user);
+                System.out.println("done with " + user.getAccount_id());
+            }
         }
     }
 

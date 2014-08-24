@@ -33,7 +33,7 @@ public enum StackOverflowAPI {
             JsonElement json = obj.getAsJsonObject().get("items");
 
             users = gson.fromJson(json, User[].class);
-            System.out.println(users.length);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
