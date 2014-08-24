@@ -16,7 +16,7 @@ public class User extends Model {
     private int parsedAge;
 
     private String country;
-    
+
     /**
      * @return the reputation
      */

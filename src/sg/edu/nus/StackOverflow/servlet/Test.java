@@ -1,6 +1,7 @@
 package sg.edu.nus.StackOverflow.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,19 +28,12 @@ public class Test extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/plain");
-        response.getWriter().println("Server is OK!");
-        response.getWriter().println(DB.test());
+        PrintWriter writer = response.getWriter();
+        writer.println("Server is OK!");
+        writer.println(DB.test());
+        writer.close();
 
-        User user = DB.getUser(294226);
-        user = StackOverflowParser.parseUser(user);
-        System.out.println(user.getParsedAge());
-        System.out.println(user.getParsedLocation());
-        System.out.println(user.getParsedReputation());
-
-        String country = GeocodingAPI.getCountry(user.getLocation());
-        user.setCountry(country);
-        DB.updateModel(user);
     }
-
 }
